@@ -7,7 +7,6 @@ from typing import Any
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
-
 from sentinelx_shared.config import get_settings
 from sentinelx_shared.kafka_client import publish
 
@@ -80,7 +79,7 @@ async def _kill_process(endpoint_id: str, params: dict) -> dict:
     pid = params.get("pid")
     if not pid:
         return {"success": False, "message": "Missing pid parameter"}
-    
+
     await publish(
         settings.kafka_topic_response,
         {

@@ -2,23 +2,26 @@
 Auth Service — FastAPI application factory.
 """
 import logging
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sentinelx_shared.config import get_settings
+from sentinelx_shared.db import Base, engine
+from sentinelx_shared.models import (  # noqa: F401  — needed for Alembic metadata
+    Alert,
+    Endpoint,
+    Incident,
+    ThreatIntel,
+    User,
+)
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
-from sentinelx_shared.config import get_settings
-from sentinelx_shared.db import engine, Base
-from sentinelx_shared.models import (  # noqa: F401  — needed for Alembic metadata
-    User, Endpoint, Alert, Incident, ThreatIntel,
-)
-
-from app.routers import auth, users, mfa
+from app.routers import auth, mfa, users
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

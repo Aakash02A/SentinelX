@@ -3,7 +3,6 @@ Agent registration and heartbeat.
 Handles initial registration with the backend and token persistence.
 """
 import logging
-from pathlib import Path
 from typing import TYPE_CHECKING
 
 import httpx

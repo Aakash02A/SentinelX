@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 _langchain_available = False
 try:
     from langchain_openai import ChatOpenAI
-    from langgraph.graph import StateGraph, END
+    from langgraph.graph import END, StateGraph
     _langchain_available = True
 except ImportError:
     logger.warning("LangChain/LangGraph not installed. AI analysis will use stub responses.")
@@ -32,7 +32,7 @@ class SOCAnalystAgent:
 
     def _build_graph(self):
         """Build the LangGraph reasoning graph."""
-        from langgraph.graph import StateGraph, END
+        from langgraph.graph import END, StateGraph
 
         graph = StateGraph(dict)
         graph.add_node("gather_context", self._gather_context)

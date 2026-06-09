@@ -3,10 +3,10 @@ Threat intelligence feeds router.
 """
 import logging
 from datetime import UTC, datetime
-from fastapi import APIRouter, Depends, status
 
+from fastapi import APIRouter, status
 from sentinelx_shared.db import DBSession
-from sentinelx_shared.models.threat_intel import ThreatIntel, IOCType
+from sentinelx_shared.models.threat_intel import IOCType, ThreatIntel
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -20,7 +20,7 @@ router = APIRouter()
 async def refresh_feeds(db: DBSession) -> dict[str, str | int]:
     # Mock refresh logic — seeds the database with initial known malicious IOCs
     # so that rule engine / ML engine have some data to match against.
-    
+
     sample_iocs = [
         # Malicious IP
         {

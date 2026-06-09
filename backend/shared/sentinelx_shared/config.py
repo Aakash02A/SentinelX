@@ -3,6 +3,7 @@ Global configuration — loads from environment variables / .env file.
 All services import Settings from here.
 """
 from functools import lru_cache
+
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 

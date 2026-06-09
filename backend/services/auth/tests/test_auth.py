@@ -1,9 +1,8 @@
 import pytest
 from httpx import AsyncClient
+from sentinelx_shared.models.user import User
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from sentinelx_shared.models.user import User
 
 
 @pytest.mark.asyncio

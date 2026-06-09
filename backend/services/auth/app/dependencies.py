@@ -6,11 +6,10 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError
-from sqlalchemy import select
-
 from sentinelx_shared.db import DBSession
 from sentinelx_shared.models.user import User
 from sentinelx_shared.security import Role, decode_token, has_permission
+from sqlalchemy import select
 
 _bearer = HTTPBearer(auto_error=True)
 

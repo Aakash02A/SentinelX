@@ -2,8 +2,6 @@
 MFA router — TOTP setup and verification.
 """
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import select
-
 from sentinelx_shared.db import DBSession
 from sentinelx_shared.models.user import User
 from sentinelx_shared.security import (
@@ -11,6 +9,7 @@ from sentinelx_shared.security import (
     get_totp_uri,
     verify_totp,
 )
+
 from app.dependencies import get_current_user
 from app.schemas import MFASetupResponse, MFAVerifyRequest
 

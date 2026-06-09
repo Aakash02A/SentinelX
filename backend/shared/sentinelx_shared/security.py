@@ -6,9 +6,9 @@ from datetime import UTC, datetime, timedelta
 from enum import StrEnum
 from typing import Any
 
+import bcrypt
 import pyotp
 from jose import JWTError, jwt
-import bcrypt
 
 from sentinelx_shared.config import get_settings
 

@@ -6,14 +6,13 @@ import logging
 from datetime import UTC, datetime
 from typing import Any
 
-from sqlalchemy import select
-
 from sentinelx_shared.db import AsyncSessionLocal
 from sentinelx_shared.models.alert import Alert, AlertSeverity, AlertSource, AlertStatus
 from sentinelx_shared.models.endpoint import Endpoint, EndpointStatus
 from sentinelx_shared.models.incident import Incident, IncidentSeverity, IncidentStatus
+from sqlalchemy import select
 
-from app.services.scoring import ThreatScoringEngine, severity_to_score
+from app.services.scoring import ThreatScoringEngine
 
 logger = logging.getLogger(__name__)
 
@@ -93,7 +92,7 @@ class CorrelationEngine:
                 # Update endpoint threat score
                 endpoint.threat_score = max(endpoint.threat_score, final_threat_score)
                 endpoint.last_seen = datetime.now(UTC)
-                
+
                 # Auto-isolate endpoint if threat score is critical (> 90)
                 if endpoint.threat_score >= 90.0 and endpoint.status == EndpointStatus.ACTIVE:
                     endpoint.status = EndpointStatus.ISOLATED

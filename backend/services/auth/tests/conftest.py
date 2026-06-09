@@ -1,14 +1,15 @@
 import asyncio
 from collections.abc import AsyncGenerator
+
 import pytest
 from httpx import ASGITransport, AsyncClient
+from sentinelx_shared.db import Base, get_db
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
 )
 
-from sentinelx_shared.db import Base, get_db
 from app.main import app
 
 # Use an in-memory SQLite database for testing

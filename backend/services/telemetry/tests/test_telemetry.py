@@ -1,5 +1,6 @@
 import pytest
 from httpx import AsyncClient
+
 from app.services.ingestion import normalize_event
 
 
@@ -26,9 +27,9 @@ def test_normalize_process_event():
           "sha256": "abcdef123456"
         }
     }
-    
+
     normalized = normalize_event(raw_event, "test-endpoint-id")
-    
+
     assert normalized["agent"]["id"] == "test-endpoint-id"
     assert normalized["event"]["category"] == ["process"]
     assert normalized["event"]["type"] == "process_create"

@@ -8,15 +8,14 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from sqlalchemy import select
-
 from sentinelx_shared.config import get_settings
 from sentinelx_shared.db import AsyncSessionLocal
 from sentinelx_shared.kafka_client import get_kafka_consumer, publish
-from sentinelx_shared.models.threat_intel import ThreatIntel, IOCType
+from sentinelx_shared.models.threat_intel import IOCType, ThreatIntel
+from sqlalchemy import select
 
-from app.engines.sigma import SigmaRuleEngine
 from app.engines.ioc_matcher import IOCMatcher
+from app.engines.sigma import SigmaRuleEngine
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -37,16 +36,16 @@ async def refresh_iocs() -> None:
                 select(ThreatIntel).where(ThreatIntel.is_active == True)
             )
             iocs = result.scalars().all()
-            
+
             ips = [i.ioc_value for i in iocs if i.ioc_type == IOCType.IP]
             domains = [i.ioc_value for i in iocs if i.ioc_type == IOCType.DOMAIN]
             hashes = [
-                i.ioc_value 
-                for i in iocs 
+                i.ioc_value
+                for i in iocs
                 if i.ioc_type in (IOCType.FILE_HASH_SHA256, IOCType.FILE_HASH_MD5)
             ]
             urls = [i.ioc_value for i in iocs if i.ioc_type == IOCType.URL]
-            
+
             ioc_matcher.load_iocs(ips=ips, domains=domains, hashes=hashes, urls=urls)
     except Exception as exc:
         logger.error("Failed to refresh IOCs from database: %s", exc)
@@ -87,7 +86,7 @@ async def consume_events() -> None:
 async def process_event(event: dict[str, Any]) -> None:
     """Evaluate a single event and generate alerts if matches are found."""
     endpoint_id = event.get("agent", {}).get("id", "unknown")
-    
+
     # 1. Evaluate Sigma rules
     sigma_matches = sigma_engine.evaluate(event)
     for match in sigma_matches:

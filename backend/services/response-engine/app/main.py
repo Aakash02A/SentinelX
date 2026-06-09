@@ -3,12 +3,12 @@ Response Engine Service — executes automated response actions.
 Receives action commands from Kafka and dispatches to agents.
 """
 import logging
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-
 from sentinelx_shared.config import get_settings
+
 from app.routers import response
 
 logging.basicConfig(level=logging.INFO)

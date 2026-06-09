@@ -3,6 +3,7 @@ Dead letter queue (DLQ) consumer — listens for failed events and logs/persists
 """
 import asyncio
 import logging
+
 from sentinelx_shared.config import get_settings
 from sentinelx_shared.kafka_client import get_kafka_consumer
 

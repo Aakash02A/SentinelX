@@ -1,10 +1,10 @@
 """Endpoint (registered device) ORM model."""
 import uuid
 from datetime import UTC, datetime
-
-from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, String, Text
-from sqlalchemy.orm import Mapped, mapped_column, relationship
 from enum import StrEnum
+
+from sqlalchemy import DateTime, Enum, ForeignKey, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from sentinelx_shared.db import Base
 

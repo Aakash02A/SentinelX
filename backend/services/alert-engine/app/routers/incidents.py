@@ -3,12 +3,12 @@ Incidents router — track and manage security incidents.
 """
 from datetime import datetime
 from typing import Any
-from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
-from sqlalchemy import select
 
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel
 from sentinelx_shared.db import DBSession
 from sentinelx_shared.models.incident import Incident, IncidentSeverity, IncidentStatus
+from sqlalchemy import select
 
 router = APIRouter()
 
@@ -64,7 +64,7 @@ async def list_incidents(
         query = query.where(Incident.status == status)
     if severity:
         query = query.where(Incident.severity == severity)
-        
+
     query = query.order_by(Incident.created_at.desc())
     result = await db.execute(query)
     return list(result.scalars().all())

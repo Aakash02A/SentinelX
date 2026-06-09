@@ -2,12 +2,11 @@
 Threat Intel router — lookups and metadata query.
 """
 import logging
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy import select, func
 
+from fastapi import APIRouter
 from sentinelx_shared.db import DBSession
 from sentinelx_shared.models.threat_intel import ThreatIntel
-from app.integrations.virustotal import VirusTotalClient
+from sqlalchemy import func, select
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
@@ -40,7 +39,7 @@ async def lookup_ioc(ioc_value: str, db: DBSession) -> dict:
         select(ThreatIntel).where(ThreatIntel.ioc_value == ioc_value)
     )
     ioc = result.scalar_one_or_none()
-    
+
     if ioc:
         return {
             "found": True,

@@ -3,7 +3,6 @@ Async HTTP client — ships telemetry batches to the backend with retry and offl
 """
 import asyncio
 import logging
-from datetime import UTC, datetime
 from typing import Any, TYPE_CHECKING
 
 import httpx

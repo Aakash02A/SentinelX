@@ -2,7 +2,6 @@
 Pydantic v2 schemas for the auth service.
 """
 from pydantic import BaseModel, EmailStr, Field, field_validator
-
 from sentinelx_shared.security import Role
 
 

@@ -4,7 +4,6 @@ Parses Sigma YAML rules and evaluates them against normalized ECS events.
 """
 import fnmatch
 import logging
-import re
 from pathlib import Path
 from typing import Any
 

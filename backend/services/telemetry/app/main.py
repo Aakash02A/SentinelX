@@ -3,16 +3,15 @@ Telemetry Ingestion Service — FastAPI app.
 Receives events from agents, normalizes to ECS, publishes to Kafka.
 """
 import logging
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from sentinelx_shared.config import get_settings
 from sentinelx_shared.kafka_client import stop_producer
 
-from app.routers import telemetry, events
+from app.routers import events, telemetry
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

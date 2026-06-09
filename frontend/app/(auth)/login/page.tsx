@@ -32,8 +32,8 @@ export default function LoginPage() {
       const data = await res.json();
       localStorage.setItem("sentinelx_token", data.access_token);
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setIsLoading(false);
     }
@@ -112,7 +112,7 @@ export default function LoginPage() {
 
         <div className="text-center mt-6">
           <p className="text-sm text-[#94a3b8]">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/register" className="text-blue-400 hover:underline">
               Create an account
             </Link>

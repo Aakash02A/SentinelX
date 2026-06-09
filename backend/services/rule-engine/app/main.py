@@ -4,12 +4,11 @@ Consumes ECS events from Kafka, runs detections, and outputs alerts.
 """
 import asyncio
 import logging
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from sentinelx_shared.config import get_settings
 from sentinelx_shared.kafka_client import stop_producer
 
@@ -26,19 +25,19 @@ _background_tasks = set()
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     logger.info("Rule Engine starting up...")
-    
+
     # Run Kafka event consumer in background task
     consumer_task = asyncio.create_task(consume_events())
     refresh_task = asyncio.create_task(ioc_refresh_loop())
-    
+
     _background_tasks.add(consumer_task)
     _background_tasks.add(refresh_task)
-    
+
     consumer_task.add_done_callback(_background_tasks.discard)
     refresh_task.add_done_callback(_background_tasks.discard)
-    
+
     yield
-    
+
     logger.info("Rule Engine shutting down...")
     for task in _background_tasks:
         task.cancel()

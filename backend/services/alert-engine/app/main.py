@@ -4,13 +4,12 @@ correlates events, scores threats, and creates Alerts + Incidents.
 """
 import asyncio
 import logging
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-
 from sentinelx_shared.config import get_settings
-from sentinelx_shared.kafka_client import make_consumer, consume_forever
+from sentinelx_shared.kafka_client import consume_forever, make_consumer
 
 from app.routers import alerts, incidents
 from app.services.correlation import CorrelationEngine

@@ -4,13 +4,13 @@ Events router — ingests individual events and logs from agents.
 import logging
 from datetime import UTC, datetime
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
-
 from sentinelx_shared.config import get_settings
 from sentinelx_shared.db import DBSession
 from sentinelx_shared.kafka_client import publish
-from app.services.ingestion import validate_agent_token, normalize_event
+
+from app.services.ingestion import normalize_event, validate_agent_token
 
 logger = logging.getLogger(__name__)
 settings = get_settings()

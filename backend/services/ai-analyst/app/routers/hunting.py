@@ -3,7 +3,8 @@ AI Hunting router — translates natural language to OpenSearch DSL and queries 
 """
 import logging
 from typing import Any
-from fastapi import APIRouter, HTTPException, status
+
+from fastapi import APIRouter
 from pydantic import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -30,7 +31,7 @@ class HuntResponse(BaseModel):
 async def ai_hunt(body: HuntRequest) -> HuntResponse:
     # 1. Translate query to DSL (Simple rule-based mapping or LLM if configured)
     q_lower = body.query.lower()
-    
+
     # Simple rule-based translation helper for common hunting queries
     if "cmd.exe" in q_lower or "command prompt" in q_lower:
         dsl = {
@@ -82,7 +83,7 @@ async def ai_hunt(body: HuntRequest) -> HuntResponse:
     # In production, we'd use the opensearch-py client:
     # client = OpenSearch(...)
     # response = client.search(body=dsl, index="sentinelx-events-*")
-    
+
     mock_results = [
         {
             "@timestamp": "2026-06-08T12:00:00Z",

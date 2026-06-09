@@ -5,27 +5,27 @@ from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy import select
-from slowapi import Limiter
-from slowapi.util import get_remote_address
-
 from sentinelx_shared.db import DBSession
 from sentinelx_shared.models.user import User
 from sentinelx_shared.security import (
+    Role,
     create_access_token,
     create_refresh_token,
     decode_token,
     hash_password,
     verify_password,
-    Role,
 )
+from slowapi import Limiter
+from slowapi.util import get_remote_address
+from sqlalchemy import select
+
+from app.middleware.audit_log import audit
 from app.schemas import (
+    RefreshRequest,
     RegisterRequest,
     RegisterResponse,
     TokenResponse,
-    RefreshRequest,
 )
-from app.middleware.audit_log import audit
 
 router = APIRouter()
 limiter = Limiter(key_func=get_remote_address)

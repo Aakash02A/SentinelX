@@ -3,12 +3,12 @@ Alerts router — query and update security alerts.
 """
 from datetime import datetime
 from typing import Any
-from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel
-from sqlalchemy import select
 
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel
 from sentinelx_shared.db import DBSession
-from sentinelx_shared.models.alert import Alert, AlertSeverity, AlertStatus, AlertSource
+from sentinelx_shared.models.alert import Alert, AlertSeverity, AlertSource, AlertStatus
+from sqlalchemy import select
 
 router = APIRouter()
 
@@ -56,7 +56,7 @@ async def list_alerts(
         query = query.where(Alert.severity == severity)
     if endpoint_id:
         query = query.where(Alert.endpoint_id == endpoint_id)
-        
+
     query = query.order_by(Alert.triggered_at.desc())
     result = await db.execute(query)
     return list(result.scalars().all())

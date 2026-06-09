@@ -4,12 +4,12 @@ Provides incident summary, root cause analysis, MITRE mapping,
 and natural language threat hunting.
 """
 import logging
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
-
 from sentinelx_shared.config import get_settings
+
 from app.routers import analysis, hunting
 
 logging.basicConfig(level=logging.INFO)

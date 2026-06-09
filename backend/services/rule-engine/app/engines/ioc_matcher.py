@@ -2,7 +2,6 @@
 IOC Matcher — matches events against known malicious indicators.
 Checks IPs, domains, URLs, and file hashes against the threat intel DB.
 """
-import hashlib
 import ipaddress
 import logging
 from typing import Any

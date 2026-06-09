@@ -119,3 +119,22 @@ logs/
 # --------------- Agent runtime files ---------------
 agent/python/*.dat
 agent/python/agent_id*
+
+# --------------- Local sensitive / credential files ---------------
+# Ignore local environment and credential files that may contain secrets
+.env.local
+.env.*.local
+.env
+env.local
+*.env
+credentials.json
+secrets.yml
+secrets.json
+/.aws/
+/.azure/
+/.gcloud/
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+test_env/

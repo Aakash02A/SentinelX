@@ -2,16 +2,15 @@
 Event normalization and agent token validation.
 Normalizes raw agent payloads to ECS (Elastic Common Schema) format.
 """
-import hashlib
 import logging
 from datetime import UTC, datetime
 from typing import Any
 
 logger = logging.getLogger(__name__)
 
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
 from sentinelx_shared.models.endpoint import Endpoint
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 # In production: look up token in Redis cache (fast) → DB (fallback)
 _token_cache: dict[str, dict] = {}
