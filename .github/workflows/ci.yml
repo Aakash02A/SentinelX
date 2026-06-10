@@ -27,10 +27,11 @@ jobs:
         run: pip install ruff mypy
 
       - name: Ruff lint
-        run: ruff check backend/ agent/python/ --ignore B008,B904,C401,E402,E501,E712,F401,F821,W293
+        run: ruff check --config .ruff-ci.toml backend/ agent/python/
 
-      - name: Ruff format check
-        run: ruff format backend/ agent/python/
+      - name: Ruff format check (advisory)
+        continue-on-error: true
+        run: ruff format --config .ruff-ci.toml --check backend/ agent/python/
 
   # ── Backend Tests ──────────────────────────────────────────
   test-backend:
